@@ -1,27 +1,24 @@
 fun main() {
-    val purchaseAmount = 1000
     val buyer = true
-    var discount: Double
+    var sum = 1_000_45 //в копейках
+    val standartSale = 100_00
+    val discountOver1000 = 0.05
+    val discountForRegular = 0.01
 
-    if (purchaseAmount > 1000 && purchaseAmount < 10_000) {
-        discount = 100.00
-    } else if (purchaseAmount >= 10_001) {
-        discount = (purchaseAmount / 100 * 5).toDouble()
-    } else
-        discount = 0.0
-
-    if (buyer) {
-        println(
-            """Покупка - $purchaseAmount рублей ->
-            |после применения 5% скидки - ${purchaseAmount.minus(discount)} рублей.
-            |после применения 1% скидки - ${(purchaseAmount.minus(discount)) - purchaseAmount.minus(discount) / 100 * 1} рублей.
-        """.trimMargin()
-        )
-    } else {
-        println(
-            """Покупка - $purchaseAmount рублей ->
-            |после применения 5% скидки - ${purchaseAmount.minus(discount)} рублей.
-        """.trimMargin()
-        )
+    println("Сумма покупки составляет: ${sumToString(sum)} →")
+    if (sum > 10_000_00) {
+        sum -= (sum * discountOver1000).toInt()
+        println("после применения 5% скидки - ${sumToString(sum)}")
+    } else if (sum > 1_000_00) {
+        sum -= standartSale
+        println("после применения скидки 100 рублей - ${sumToString(sum)}")
     }
+    if (buyer) {
+        sum -= (sum * discountForRegular).toInt()
+        println("после применения 1% скидки - ${sumToString(sum)}")
+    }
+}
+
+fun sumToString(sum: Int): String {
+    return if (sum % 100 == 0) "${sum / 100} рублей" else "${sum / 100} рублей ${sum % 100} копеек"
 }
